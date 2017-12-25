@@ -55,10 +55,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 Log.i(TAG, e.getMessage());
                             }
                             Log.i(TAG, "Thread id in while loop: " + Thread.currentThread().getId());
-                            handler.post(new Runnable() {
+                            /*handler.post(new Runnable() {
                                 @Override
                                 public void run() {
                                     txtThreadCount.setText(" " + count );
+                                }
+                            });*/
+                            txtThreadCount.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    txtThreadCount.setText(" " + count);
                                 }
                             });
                         }
