@@ -3,5 +3,9 @@ Main_UIThread
 1. Your code run on UI/Main Thread by default.
 2. Action takes more than 5 seconds (connect service, download image... ) on UI Thread -> not responding
 3. Create a seperate thread and execute action in this thread.
-4. But cannot update the UI view on seperate thread -> using Handler and Looper
-
+4. But cannot update the UI view on seperate thread -> using Handler and Looper.
+5. If update view on seperate thread -> Error: Only the original thread that created a view hierarchy can touch its views.
+6. Android maintans a queue which is called as a message queue. It was populated with tasks (update the UI, click the button...)
+7. UI thread is under constant loop (Looper) will execute tasks.
+8. Seperate thread cannot directly put the task in that particular queue.
+9. Thread using Handler to put the task in to queue. The task should be of type Runnable instance.
