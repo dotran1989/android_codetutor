@@ -1,5 +1,6 @@
 package com.example.quoccuong.mainthread;
 
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +18,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean mStopLoop;
     int count = 0;
 
+    Handler handler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +33,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btnStartThread.setOnClickListener(this);
         btnStopThread.setOnClickListener(this);
+
+        // Initialize Handler with reference to Looper
+        handler = new Handler(getApplicationContext().getMainLooper());
     }
 
     @Override
@@ -49,7 +55,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 Log.i(TAG, e.getMessage());
                             }
                             Log.i(TAG, "Thread id in while loop: " + Thread.currentThread().getId());
-                            txtThreadCount.setText(" " + count );
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    txtThreadCount.setText(" " + count );
+                                }
+                            });
                         }
                     }
                 }).start();
