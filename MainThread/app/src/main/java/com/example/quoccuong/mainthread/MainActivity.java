@@ -1,5 +1,6 @@
 package com.example.quoccuong.mainthread;
 
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Handler handler;
 
+    private MyAsyncTask myAsyncTask;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnStopThread.setOnClickListener(this);
 
         // Initialize Handler with reference to Looper
-        handler = new Handler(getApplicationContext().getMainLooper());
+//        handler = new Handler(getApplicationContext().getMainLooper());
     }
 
     @Override
@@ -44,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btnStartThread:
                 mStopLoop = true;
                 // create a new Thread for loop
-                new Thread(new Runnable() {
+                /*new Thread(new Runnable() {
                     @Override
                     public void run() {
                         while (mStopLoop) {
@@ -55,12 +58,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 Log.i(TAG, e.getMessage());
                             }
                             Log.i(TAG, "Thread id in while loop: " + Thread.currentThread().getId());
-                            /*handler.post(new Runnable() {
+                            *//*handler.post(new Runnable() {
                                 @Override
                                 public void run() {
                                     txtThreadCount.setText(" " + count );
                                 }
-                            });*/
+                            });*//*
                             txtThreadCount.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -69,11 +72,57 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             });
                         }
                     }
-                }).start();
+                }).start();*/
+                myAsyncTask = new MyAsyncTask();
+                myAsyncTask.execute(5);
                 break;
             case R.id.btnStopThread:
                 mStopLoop = false;
                 break;
+        }
+    }
+
+    private class MyAsyncTask extends AsyncTask<Integer, Integer, Integer> {
+
+        private int customCounter;
+
+        @Override
+        protected void onPreExecute() {
+            Log.i(TAG, "onPreExecute");
+            super.onPreExecute();
+            customCounter = 0;
+        }
+
+        @Override
+        protected Integer doInBackground(Integer... integers) {
+            Log.i(TAG, "doInBackground");
+            customCounter = integers[0];
+            Log.i(TAG, "integers[0]: " + integers[0]);
+            while (mStopLoop) {
+                try {
+                    Thread.sleep(1000);
+                    customCounter++;
+                    publishProgress(customCounter); // send value to onProgressUpdate()
+                } catch (Exception e) {
+                    Log.i(TAG, e.getMessage());
+                }
+            }
+            return customCounter;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            Log.i(TAG, "onProgressUpdate");
+            txtThreadCount.setText("" + values[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            Log.i(TAG, "onPostExecute");
+            super.onPostExecute(integer);
+            txtThreadCount.setText("" + integer);
+            count = integer;
         }
     }
 }

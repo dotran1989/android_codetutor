@@ -10,3 +10,17 @@ Main_UIThread
 8. Seperate thread cannot directly put the task in that particular queue.
 9. Thread using Handler to put the task in to queue. The task should be of type Runnable instance. 
 Handle should have a reference to the message queue of the UI thread.
+
+AsyncTask
+
+_ Have 4 methods make sure you are able to do long running tasks in a way you don't hog the main thread.
++ doInBackground() runs in seperate thread.
++ onPreExecute() runs in main thread before doInBackground()
++ onPostExecute() runs in main thread to update UI once doInBackground() completes.
++ onProgressUpdate() shows progress of working on main thread.
+
+_ Have 3 params
++ Params: is all about the starting value which AsyncTask will start it's work.
++ Progress: is the parameter that onProgressUpdate() method will use to keep updating the UI when doInBackground() still is under progress.
++ Result: is the final result update.
+
