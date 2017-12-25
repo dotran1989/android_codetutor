@@ -77,7 +77,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 myAsyncTask.execute(5);
                 break;
             case R.id.btnStopThread:
-                mStopLoop = false;
+//                mStopLoop = false;
+                myAsyncTask.cancel(true);
                 break;
         }
     }
@@ -106,6 +107,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } catch (Exception e) {
                     Log.i(TAG, e.getMessage());
                 }
+                if (isCancelled()) {
+                    break;
+                }
             }
             return customCounter;
         }
@@ -123,6 +127,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super.onPostExecute(integer);
             txtThreadCount.setText("" + integer);
             count = integer;
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+            Log.i(TAG, "onCancelled");
+        }
+
+        @Override
+        protected void onCancelled(Integer integer) {
+            super.onCancelled(integer);
+            Log.i(TAG, "onCancelled + integer");
         }
     }
 }
