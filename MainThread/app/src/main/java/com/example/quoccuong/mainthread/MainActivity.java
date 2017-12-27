@@ -81,13 +81,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }).start();*/
                 /*myAsyncTask = new MyAsyncTask();
                 myAsyncTask.execute(5);*/
-                executeOnCustomLooper();
+                executeOnCustomLooperWithCustomHandler();
                 break;
             case R.id.btnStopThread:
                 mStopLoop = false;
 //                myAsyncTask.cancel(true);
                 break;
         }
+    }
+
+    public void executeOnCustomLooperWithCustomHandler() {
+
+        looperThread.handler.post(new Runnable() {
+            @Override
+            public void run() {
+
+                while (mStopLoop) {
+                    try {
+                        Thread.sleep(1000);
+                        count++;
+                        Log.i(TAG, "Thread id of Runnable: " + Thread.currentThread().getId());
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.i(TAG, "Thread id of runOnUiThread: " + Thread.currentThread().getId() + ", count: " + count);
+                                txtThreadCount.setText("" + count);
+                            }
+                        });
+                    } catch (InterruptedException e) {
+                        Log.i(TAG, "Thread for interrupted");
+                    }
+                }
+            }
+        });
     }
 
     public void executeOnCustomLooper() {
