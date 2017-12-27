@@ -1,0 +1,85 @@
+Enroll
+
+https://courses.edx.org/course_modes/choose/course-v1:GalileoX+CAAD002X+1T2018/
+https://courses.edx.org/courses/course-v1:GalileoX+CAAD003X+3T2017
+https://www.coursera.org/learn/android-programming/home/welcome
+https://www.coursera.org/learn/android-programming-2/home/welcome
+https://classroom.udacity.com/courses/ud862
+https://classroom.udacity.com/courses/ud867
+
+======================================================
+
+
+https://www.class-central.com/mooc/7315/edx-android-app-development-for-beginners
+
+Lesson 1
+
+Android Overview
+Android Basic Blocks
+Basic UI Elements
+Strings.xml & message localization
+Resources and Asset Files
+Gradle Dependencies
+Android Broadcast Intent and Broadcast Receiver
+Debugging
+Working with my App
+Persisting Application State
+Debug Logcat Errors
+Lesson 2
+
+Introduction
+Recyclerview, Adapter & ViewHolder
+Fragments
+Material Design Elements
+Navigation
+Testing with Espresso
+Working with my App
+Adding Views Dynamically
+Building Layouts for screen configuration changes
+Working with Custom Styles & Themes
+Lesson 3
+
+Android Hierarchical Navigation
+Webview
+Custom Views
+Permission system
+AsyncTask, Threading and Handlers
+Using AsyncTask vs. Java Threads (with Handlers)
+Loaders
+AsyncTaskLoader & CursorLoader
+Background Services
+Android Scheduling task
+Working with my App
+Lesson 4
+
+Access Files in Assets
+Access Resources
+Save Data and Files
+SQLite Databases
+Content Providers
+Loaders
+Background Services
+Lesson 5
+
+Widgets
+Notifications
+Getting Ready for Deployment
+Publish on Play Store
+
+
+================================================================
+
+https://www.edx.org/course/professional-android-app-development-galileox-caad003x-2?source=aw&awc=6798_1509963199_948b3a4838cb599cb6379387a8434fcd&utm_source=aw&utm_medium=affiliate_partner&utm_content=text-link&utm_term=301045_https://www.class-central.com/#!
+
+Firebase and Android
+Model-View-Presenter (MVP)
+Clean Architecture Android
+Create and display a notification to the user
+Building at least 4 android applications
+#01 App: Building a Basic Chat Application
+#02 App: Create a Twitter App
+#03 App: Integrating Facebook with my App: Facebook Recipes
+#04 App: Your social network of photographs!
+How to assure the best possible performance, quality, and responsiveness of the application
+Integrate code from an external support library
+Use the system log to output debug information
