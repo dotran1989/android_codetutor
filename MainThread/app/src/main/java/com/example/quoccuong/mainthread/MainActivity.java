@@ -2,6 +2,7 @@ package com.example.quoccuong.mainthread;
 
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,12 +24,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private MyAsyncTask myAsyncTask;
 
+    LooperThread looperThread;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.i(TAG, "Thread id: " + Thread.currentThread().getId());
+        Log.i(TAG, "Thread id of Main thread: " + Thread.currentThread().getId());
 
         btnStartThread = findViewById(R.id.btnStartThread);
         btnStopThread = findViewById(R.id.btnStopThread);
@@ -39,6 +42,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Initialize Handler with reference to Looper
 //        handler = new Handler(getApplicationContext().getMainLooper());
+
+        looperThread = new LooperThread();
+        looperThread.start();
     }
 
     @Override
@@ -73,14 +79,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                 }).start();*/
-                myAsyncTask = new MyAsyncTask();
-                myAsyncTask.execute(5);
+                /*myAsyncTask = new MyAsyncTask();
+                myAsyncTask.execute(5);*/
+                executeOnCustomLooper();
                 break;
             case R.id.btnStopThread:
-//                mStopLoop = false;
-                myAsyncTask.cancel(true);
+                mStopLoop = false;
+//                myAsyncTask.cancel(true);
                 break;
         }
+    }
+
+    public void executeOnCustomLooper() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                while (mStopLoop) {
+                    try {
+                        Log.i(TAG, "Thread id of thread that sends message: " + Thread.currentThread().getId());
+                        Thread.sleep(1000);
+                        count++;
+                        Message message = new Message();
+                        message.obj = "" + count;
+                        looperThread.handler.sendMessage(message);
+                    } catch (InterruptedException e) {
+                        Log.i(TAG, "Thread for interrupted");
+                    }
+
+                }
+            }
+        }).start();
     }
 
     private class MyAsyncTask extends AsyncTask<Integer, Integer, Integer> {

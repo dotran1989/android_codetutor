@@ -1,3 +1,7 @@
+Thread
+
+1. Remember Thread only run when call start()
+
 Main_UIThread
 
 1. Your code run on UI/Main Thread by default.
@@ -24,3 +28,19 @@ _ Have 3 params
 + Progress: is the parameter that onProgressUpdate() method will use to keep updating the UI when doInBackground() still is under progress.
 + Result: is the final result update.
 
+Custom Looper and Handler
+
+1. Create a class extends Thread
+2. Make it a looper in run() method.
+
++ Looper.prepare()
++ Looper.loop()
+
+_ run() only execute once
+
+3. Create a new Handler
+_ msg.obj will be initialized by Thread sends message to handler. Thread is MainActivity(in example) or anywhere
+
+4. Handler will place Runnable instance in Message queue of Looper thread.
+
+5. runOnUiThread() transfer the control from non-UI thread to UI thread.
