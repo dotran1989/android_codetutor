@@ -84,3 +84,5 @@ with a remote data.
 
 6. You can think the data returned from the content provider as tabular formating containing rows and columns.
 Cursor is an API which allows you to traverse through those rows.
+
+7. All most content provider in API starts with android.provider.*
