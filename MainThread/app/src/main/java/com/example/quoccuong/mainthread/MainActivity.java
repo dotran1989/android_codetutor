@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     LooperThread looperThread;
 
+    CustomHandlerThread customHandlerThread;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +45,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Initialize Handler with reference to Looper
 //        handler = new Handler(getApplicationContext().getMainLooper());
 
-        looperThread = new LooperThread();
-        looperThread.start();
+//        looperThread = new LooperThread();
+//        looperThread.start();
+
+        customHandlerThread = new CustomHandlerThread("CustomHandlerThread");
+        customHandlerThread.start();
     }
 
     @Override
@@ -81,7 +86,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }).start();*/
                 /*myAsyncTask = new MyAsyncTask();
                 myAsyncTask.execute(5);*/
-                executeOnCustomLooperWithCustomHandler();
+//                executeOnCustomLooperWithCustomHandler();
+                executeOnCustomLooper();
                 break;
             case R.id.btnStopThread:
                 mStopLoop = false;
@@ -128,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         count++;
                         Message message = new Message();
                         message.obj = "" + count;
-                        looperThread.handler.sendMessage(message);
+                        customHandlerThread.mHandler.sendMessage(message);
                     } catch (InterruptedException e) {
                         Log.i(TAG, "Thread for interrupted");
                     }
