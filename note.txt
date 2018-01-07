@@ -1,4 +1,4 @@
-Thread
+THREAD
 
 1. Remember Thread only run when call start()
 
@@ -8,14 +8,16 @@ Main_UIThread
 2. Action takes more than 5 seconds (connect service, download image... ) on UI Thread -> not responding
 3. Create a seperate thread and execute action in this thread.
 4. But cannot update the UI view on seperate thread -> using Handler and Looper.
-5. If update view on seperate thread -> Error: Only the original thread that created a view hierarchy can touch its views.
+5. If update view on seperate thread -> Error: Only the original thread that created a view hierarchy can touch its views.zxc
+
+
 6. Android maintans a queue which is called as a message queue. It was populated with tasks (update the UI, click the button...)
-7. UI thread is under constant loop (Looper) will execute tasks.
+7. UI thread is under constant loop (Looper) will execute tasks.xc
 8. Seperate thread cannot directly put the task in that particular queue.
-9. Thread using Handler to put the task in to queue. The task should be of type Runnable instance. 
+9. Thread using Handler to put the task in to queue. The task should be of type Runnable instance. zxczxcxc	
 Handle should have a reference to the message queue of the UI thread.
 
-AsyncTask
+xzc
 
 _ Have 4 methods make sure you are able to do long running tasks in a way you don't hog the main thread.
 + doInBackground() runs in seperate thread.
@@ -59,3 +61,22 @@ HandlerThread
 1. HandlerThread is Thread. Because it extends from Thread.
 
 2. HandlerThread has onLooperPrepared() method.
+
+==========================
+CONTENT PROVIDER
+
+1. App 2 cannot get data from app 1 because this is private. So only legal mechanism is the app 2 to need to request the data from app 1. 
+And app 1 will respond back.
+
+2. How? We will use new component is Content Provider. App 2 will use API called as Content Resolver will hit app once database.
+And app 1 will respond back using a format called as Cursor.
+
+3. getContentResolver() which returns instance of a Content Resolver actually hit the correct content provider.
+
+4. URI: Uniform Resource Identifier like URL hit a unique website. URI hits to unique content provider.
+
+5. Content Resolver provides you CRUD (create - retrieve - update - delete) operations. And batch operations provides you a mechanism to connect
+with a remote data.
+
+6. You can think the data returned from the content provider as tabular formating containing rows and columns.
+Cursor is an API which allows you to traverse through those rows.
