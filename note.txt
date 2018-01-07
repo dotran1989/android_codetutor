@@ -31,7 +31,7 @@ _ Have 3 params
 + Result: is the final result update.
 
 ------------------------------
-Custom Looper and Handler
+Custom Looper and Handler (sendMessage)
 
 1. Create a class extends Thread
 2. Make it a looper in run() method.
@@ -42,10 +42,12 @@ Custom Looper and Handler
 _ run() only execute once
 
 3. Create a new Handler
-_ msg.obj will be initialized by Thread sends message to handler. Thread is MainActivity(in example) or anywhere
+_ msg.obj will be initialized by Thread sends message to handler. Thread is MainActivity(in example) or anywhere.
+
+_ looperThread.handler.sendMessage(message)
 
 ------------------------------
-Custom Looper with custom Handler
+Custom Looper with custom Handler (post new Runnable)
 
 1. Handler will place Runnable instance in Message queue of Looper thread.
 
@@ -62,8 +64,10 @@ HandlerThread
 
 2. HandlerThread has onLooperPrepared() method.
 
+=> both Custom Looper and HandlerThread will use runOnUiThread() to update view.
+
 ==========================
-CONTENT PROVIDER
+CONTENT PROVIDER - Intro
 
 1. App 2 cannot get data from app 1 because this is private. So only legal mechanism is the app 2 to need to request the data from app 1. 
 And app 1 will respond back.
