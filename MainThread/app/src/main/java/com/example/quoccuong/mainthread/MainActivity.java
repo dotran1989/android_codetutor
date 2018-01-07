@@ -86,8 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }).start();*/
                 /*myAsyncTask = new MyAsyncTask();
                 myAsyncTask.execute(5);*/
-//                executeOnCustomLooperWithCustomHandler();
-                executeOnCustomLooper();
+                executeOnCustomLooperWithCustomHandler();
                 break;
             case R.id.btnStopThread:
                 mStopLoop = false;
@@ -98,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void executeOnCustomLooperWithCustomHandler() {
 
-        looperThread.handler.post(new Runnable() {
+        customHandlerThread.mHandler.post(new Runnable() {
             @Override
             public void run() {
 
