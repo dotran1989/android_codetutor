@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
             ContactsContract.Contacts.CONTACT_STATUS,
             ContactsContract.Contacts.HAS_PHONE_NUMBER };
 
-    private String mSelectionClause = ContactsContract.Contacts.DISPLAY_NAME_PRIMARY + " = 'Anil'";
+    private String mSelectionClause = ContactsContract.Contacts.DISPLAY_NAME_PRIMARY + " = '?'";
 
     private String[] mSelectionArguments = new String[] {"Anil"};
 
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         Cursor cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI,
                 mColumnProjection,
                 mSelectionClause,
-                null,
+                mSelectionArguments,
                 mOrderBy);
 
         if (cursor != null && cursor.getCount() > 0) {
