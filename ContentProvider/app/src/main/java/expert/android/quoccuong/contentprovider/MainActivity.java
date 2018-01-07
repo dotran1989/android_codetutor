@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         ContentResolver contentResolver = getContentResolver();
         Cursor cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI,
                 mColumnProjection,
-                null,
+                mSelectionClause,
                 null,
                 mOrderBy);
 
