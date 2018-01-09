@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private String mOrderBy = ContactsContract.Contacts.DISPLAY_NAME_PRIMARY;
 
+    private boolean firstTimeLoaded = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +94,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, PERMISSION_REQUEST_READ_CONTACTS);
                 } else {
-                    getLoaderManager().initLoader(1, null, this);
+                    if (firstTimeLoaded) {
+                        getLoaderManager().initLoader(1, null, this);
+                        firstTimeLoaded = false;
+                    } else { // in first time, cursor is at the end of table so reload to get new cursor
+                        getLoaderManager().restartLoader(1, null, this);
+                    }
                 }
                 break;
             default:

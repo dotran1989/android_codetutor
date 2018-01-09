@@ -101,3 +101,17 @@ We have 3 main flow:
 
 _ Loader
 
+1. Activity can have a single/multiple Loaders.
+
+2. Activity implements LoaderManager.LoaderCallbacks<Cursor>
+
+3. init and restart Loader
+
+_ getLoaderManager().initLoader(1, null, this); // indentifier, bundle, loaderCallback ('this' bescause Activity is implements LoaderCallbacks)
+_ getLoaderManager().restartLoader(1, null, this);
+
+4. Callback methods:
+
+onCreateLoader(): create worker thread
+onLoadFinished(): thread is completed, this method will be triggred and update UI.
+onLoaderReset(): reset worker thread
