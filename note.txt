@@ -86,3 +86,17 @@ with a remote data.
 Cursor is an API which allows you to traverse through those rows.
 
 7. All most content provider in API starts with android.provider.*
+
+------------------------------
+CONTENT PROVIDER - Loader and Cursor Loader
+
+We have 3 main flow:
+
+1. Request for data from Content Resolver (UI Thread)
+
+2. Load the data from Content Provider (cannot load in UI Thread causes ANR). We can use Thread, AsyncTask or Loader, Cursor Loader
+
+3. Init UI with data.
+
+
+_ Loader
