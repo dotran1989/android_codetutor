@@ -17,7 +17,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor>{
 
     private static final String TAG = "Cuong";
 
@@ -85,10 +85,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_loadData:
-                showContacts();
+//                showContacts();
+                // 1: identifier of loader
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                        checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+
+                    requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, PERMISSION_REQUEST_READ_CONTACTS);
+                } else {
+                    getLoaderManager().initLoader(1, null, this);
+                }
                 break;
             default:
                 break;
         }
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        if (i == 1) {
+            return new CursorLoader(this, ContactsContract.Contacts.CONTENT_URI, mColumnProjection, null, null, null);
+        }
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        if (cursor != null && cursor.getCount() > 0) {
+            StringBuilder sb = new StringBuilder();
+            while (cursor.moveToNext()) {
+                sb.append(cursor.getString(0) + ", " + cursor.getString(1) +
+                        ", " + cursor.getString(2) + "\n");
+            }
+            mTextViewQueryResult.setText(sb.toString());
+        } else {
+            mTextViewQueryResult.setText("No contacts in device");
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
     }
 }
