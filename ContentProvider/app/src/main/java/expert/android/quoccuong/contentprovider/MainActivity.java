@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText mEdtContactName;
 
     private String[] mColumnProjection = new String[]{
+            ContactsContract.Contacts._ID,
             ContactsContract.Contacts.DISPLAY_NAME_PRIMARY,
             ContactsContract.Contacts.CONTACT_STATUS,
             ContactsContract.Contacts.HAS_PHONE_NUMBER};
