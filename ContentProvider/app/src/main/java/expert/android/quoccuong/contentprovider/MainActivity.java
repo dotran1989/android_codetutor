@@ -3,6 +3,7 @@ package expert.android.quoccuong.contentprovider;
 import android.Manifest;
 import android.app.LoaderManager;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.content.pm.PackageManager;
@@ -138,6 +139,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void updateContact() {
 
+        String[] updateValue = mEdtContactName.getText().toString().split(" ");
+
+        String targetString = null;
+        String newString = null;
+
+        if (updateValue.length == 2) {
+
+            targetString = updateValue[0];
+            newString = updateValue[1];
+
+            String where = ContactsContract.RawContacts._ID + " = ? ";
+            String[] params = new String[] {targetString};
+
+            ContentResolver resolver = getContentResolver();
+            ContentValues values = new ContentValues();
+            values.put(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY, newString);
+            resolver.update(ContactsContract.Contacts.CONTENT_URI, values, where, params);
+        }
     }
 
     @Override
