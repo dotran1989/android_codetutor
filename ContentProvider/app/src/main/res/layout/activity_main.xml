@@ -23,4 +23,38 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/btn_loadData"/>
 
+    <EditText
+        android:id="@+id/edt_contact_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewQueryResult"
+        android:layout_centerHorizontal="true"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edt_contact_name"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_addContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Contact"/>
+
+        <Button
+            android:id="@+id/btn_removeContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Remove Contact"/>
+
+        <Button
+            android:id="@+id/btn_updateContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update Contact"/>
+
+    </LinearLayout>
+
 </RelativeLayout>
