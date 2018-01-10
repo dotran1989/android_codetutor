@@ -117,3 +117,6 @@ _ getLoaderManager().restartLoader(1, null, this);
 onCreateLoader(): create worker thread
 onLoadFinished(): thread is completed, this method will be triggred and update UI.
 onLoaderReset(): reset worker thread
+
+
+content://com.android.contacts/raw_contacts
