@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ContentResolver resolver = getContentResolver();
             ContentValues values = new ContentValues();
             values.put(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY, newString);
-            resolver.update(ContactsContract.Contacts.CONTENT_URI, values, where, params);
+            resolver.update(ContactsContract.RawContacts.CONTENT_URI, values, where, params);
         }
     }
 
