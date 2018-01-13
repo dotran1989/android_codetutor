@@ -123,3 +123,17 @@ content://com.android.contacts/raw_contacts
 https://stackoverflow.com/questions/4459138/insert-contact-in-android-with-contactscontract
 https://www.grokkingandroid.com/better-performance-with-contentprovideroperation/
 https://www.grokkingandroid.com/androids-contentprovideroperation-withbackreference-explained/
+
+==========================
+ANDROID DATA PERSISTENT - Intro
+
+1. On-device and Off-device
+2. On-device:
++ File IO: read/write data (external storage). Type of data: XML, JSON, images, CSV. Should know Java IO Streams
++ Shared Preferences: app settings are usually stored in this. App sensitive data should not be store. Type of data: XML
++ SQLite: type of data is Embedded (server-client) and Relational Database.  
+And we may want to share it with another app in that case you have to use Custom ContentProvider.
+
+3. Off-device:
++ Web services: type of data is JSON, XML, images. Should know about XML/JSON parsing, Threads, AsyncTask and basic idea of Web Services.
+
