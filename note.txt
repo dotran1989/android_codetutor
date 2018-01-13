@@ -137,3 +137,5 @@ And we may want to share it with another app in that case you have to use Custom
 3. Off-device:
 + Web services: type of data is JSON, XML, images. Should know about XML/JSON parsing, Threads, AsyncTask and basic idea of Web Services.
 
+4. Path of file: data/data/<package_name> in Device File Explorer.
+
