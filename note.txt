@@ -1,3 +1,5 @@
+ANDROID CODETUTOR
+
 THREAD
 
 1. Remember Thread only run when call start()
@@ -115,3 +117,9 @@ _ getLoaderManager().restartLoader(1, null, this);
 onCreateLoader(): create worker thread
 onLoadFinished(): thread is completed, this method will be triggred and update UI.
 onLoaderReset(): reset worker thread
+
+
+content://com.android.contacts/raw_contacts
+https://stackoverflow.com/questions/4459138/insert-contact-in-android-with-contactscontract
+https://www.grokkingandroid.com/better-performance-with-contentprovideroperation/
+https://www.grokkingandroid.com/androids-contentprovideroperation-withbackreference-explained/

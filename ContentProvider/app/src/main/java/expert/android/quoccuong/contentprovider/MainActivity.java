@@ -2,38 +2,47 @@ package expert.android.quoccuong.contentprovider;
 
 import android.Manifest;
 import android.app.LoaderManager;
+import android.content.ContentProviderOperation;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Loader;
+import android.content.OperationApplicationException;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Build;
+import android.os.RemoteException;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor>{
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String TAG = "Cuong";
 
-    private static final int PERMISSION_REQUEST_READ_CONTACTS = 1;
+    private static final int PERMISSION_REQUEST_READ_WHITE_CONTACTS = 1;
 
-    private Button mBtnLoadData;
+    private Button mBtnLoadData, mAddContact, mRemoveContact, mUpdateContact;
     private TextView mTextViewQueryResult;
+    private EditText mEdtContactName;
 
-    private String[] mColumnProjection = new String[] {
+    private String[] mColumnProjection = new String[]{
+            ContactsContract.Contacts._ID,
             ContactsContract.Contacts.DISPLAY_NAME_PRIMARY,
             ContactsContract.Contacts.CONTACT_STATUS,
-            ContactsContract.Contacts.HAS_PHONE_NUMBER };
+            ContactsContract.Contacts.HAS_PHONE_NUMBER};
 
     private String mSelectionClause = ContactsContract.Contacts.DISPLAY_NAME_PRIMARY + " = ?"; // 'abc'
 
-    private String[] mSelectionArguments = new String[] {"abc"};
+    private String[] mSelectionArguments = new String[]{"abc"};
 
     private String mOrderBy = ContactsContract.Contacts.DISPLAY_NAME_PRIMARY;
 
@@ -48,8 +57,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mTextViewQueryResult = findViewById(R.id.textViewQueryResult);
         mBtnLoadData = findViewById(R.id.btn_loadData);
+        mAddContact = findViewById(R.id.btn_addContact);
+        mRemoveContact = findViewById(R.id.btn_removeContact);
+        mUpdateContact = findViewById(R.id.btn_updateContact);
+        mEdtContactName = findViewById(R.id.edt_contact_name);
 
         mBtnLoadData.setOnClickListener(this);
+        mAddContact.setOnClickListener(this);
+        mRemoveContact.setOnClickListener(this);
+        mUpdateContact.setOnClickListener(this);
 
     }
 
@@ -57,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                 checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
 
-            requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, PERMISSION_REQUEST_READ_CONTACTS);
+            requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, PERMISSION_REQUEST_READ_WHITE_CONTACTS);
         } else {
             getContactNames();
         }
@@ -90,9 +106,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                showContacts();
                 // 1: identifier of loader
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-                        checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+                        checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED &&
+                        checkSelfPermission(Manifest.permission.WRITE_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
 
-                    requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, PERMISSION_REQUEST_READ_CONTACTS);
+                    requestPermissions(new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS}, PERMISSION_REQUEST_READ_WHITE_CONTACTS);
                 } else {
                     if (firstTimeLoaded) {
                         getLoaderManager().initLoader(1, null, this);
@@ -102,8 +119,67 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 }
                 break;
+            case R.id.btn_addContact:
+                addContact();
+                break;
+            case R.id.btn_removeContact:
+                removeContact();
+                break;
+            case R.id.btn_updateContact:
+                updateContact();
+                break;
             default:
                 break;
+        }
+    }
+
+    private void addContact() {
+        ArrayList<ContentProviderOperation> cpo = new ArrayList<>();
+
+        cpo.add(ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI)
+                .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, "abc@gmail.com")
+                .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, "abc")
+                .build());
+        cpo.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                .withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+                .withValue(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, mEdtContactName.getText().toString())
+                .build());
+
+        try {
+            getContentResolver().applyBatch(ContactsContract.AUTHORITY, cpo);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (OperationApplicationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void removeContact() {
+        String whereClause = ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY + " = '" + mEdtContactName.getText().toString() + "'";
+        Log.d(TAG, whereClause);
+        getContentResolver().delete(ContactsContract.RawContacts.CONTENT_URI, whereClause, null);
+    }
+
+    private void updateContact() {
+
+        String[] updateValue = mEdtContactName.getText().toString().split(" ");
+
+        String targetString = null;
+        String newString = null;
+
+        if (updateValue.length == 2) {
+
+            targetString = updateValue[0];
+            newString = updateValue[1];
+
+            String where = ContactsContract.RawContacts._ID + " = ? ";
+            String[] params = new String[] {targetString};
+
+            ContentResolver resolver = getContentResolver();
+            ContentValues values = new ContentValues();
+            values.put(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY, newString);
+            resolver.update(ContactsContract.RawContacts.CONTENT_URI, values, where, params);
         }
     }
 
