@@ -1,5 +1,6 @@
 package expert.android.quoccuong.androidpersistentdata;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -16,13 +17,19 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     private EditText edtMessage;
     private Button btnRead, btnWrite;
     private TextView txtMessage;
 
     private static final String FILENAME = "sample.txt";
+
+    private UserAction recentUserAction;
+
+    enum UserAction {
+        READ, WRITE
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,48 +64,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void populateTheReadText() {
+        recentUserAction = UserAction.READ;
         try {
-            txtMessage.setText(readFromFile(FILENAME));
-            txtMessage.setVisibility(View.VISIBLE);
+            if (arePermissionGranted(EXTERNAL_STORAGE_READ_WRITE_PERMISSION)) {
+                txtMessage.setText(readTextFromExternalStorage(FILENAME));
+                txtMessage.setVisibility(View.VISIBLE);
+            } else {
+                requestRuntimePermission(this, EXTERNAL_STORAGE_READ_WRITE_PERMISSION, EXTERNAL_STORAGE_PERMISSION,
+                        "to READ/WRITE to external storage");
+            }
         } catch (IOException e) {
             e.printStackTrace();
             txtMessage.setVisibility(View.GONE);
         }
     }
 
-    private String readFromFile(String fileName) throws IOException {
-        String readString = "";
-
-        FileInputStream fileInputStream = openFileInput(fileName);
-        InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-        StringBuilder stringBuilder = new StringBuilder();
-
-        if ((readString = bufferedReader.readLine()) != null) {
-            stringBuilder.append(readString);
-        }
-        inputStreamReader.close();
-        return stringBuilder.toString();
-    }
-
     private void writeContentToFile() {
+        recentUserAction = UserAction.WRITE;
         String text = edtMessage.getText().toString();
         if (!TextUtils.isEmpty(text)) {
             try {
-                writeToFile(FILENAME, text, MODE_PRIVATE);
+                if (arePermissionGranted(EXTERNAL_STORAGE_READ_WRITE_PERMISSION)) {
+                    writeToExternalStorageFile(FILENAME, text);
+                } else {
+                    requestRuntimePermission(this, EXTERNAL_STORAGE_READ_WRITE_PERMISSION, EXTERNAL_STORAGE_PERMISSION,
+                                    "to READ/WRITE to external storage");
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private void writeToFile(String fileName, String sourceText, int mode)
-                    throws IOException {
-
-        FileOutputStream fileOutputStream = openFileOutput(fileName, mode);
-        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
-        outputStreamWriter.write(sourceText);
-        outputStreamWriter.flush();
-        outputStreamWriter.close();
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (arePermissionGranted(permissions) && requestCode == EXTERNAL_STORAGE_PERMISSION) {
+            if (recentUserAction == UserAction.WRITE) {
+                writeContentToFile();
+            } else if (recentUserAction == UserAction.READ) {
+                populateTheReadText();
+            }
+        }
     }
 }
