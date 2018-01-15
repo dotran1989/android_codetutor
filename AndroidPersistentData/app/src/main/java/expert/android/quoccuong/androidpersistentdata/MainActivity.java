@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,6 +44,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
         btnWrite.setOnClickListener(this);
         btnRead.setOnClickListener(this);
+
+        Log.d("Cuong", "OnCreate");
     }
 
     @Override
@@ -59,6 +62,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     @Override
     protected void onResume() {
+        Log.d("Cuong", "onResume");
         super.onResume();
         populateTheReadText();
     }
