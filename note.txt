@@ -139,3 +139,26 @@ And we may want to share it with another app in that case you have to use Custom
 
 4. Path of file: data/data/<package_name> in Device File Explorer.
 
+----------------------------
+SHARED PREFERENCES
+
+1. Store non sensitive data (language, fontsize, audio volume, cache username...) in xml.
+
+2. <Key, Value> and no parsing
+
+3. Data types: boolean, float, int, long, String, Set<String>
+
+4. get:
+_ Context.getSharedPreferences
+_ Activity.getPreferences
+
+5. put and get
+
+_ PUT:
+SharedPreferences.Editor editor = sharedPreferences.edit();
+editor.putString("sample_key", text);
+editor.commit();
+
+_ GET:
+sharedPreferences.getString("sample_key", "String not found")
+
