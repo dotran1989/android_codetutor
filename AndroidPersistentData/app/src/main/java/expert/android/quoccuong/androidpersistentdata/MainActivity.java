@@ -1,5 +1,6 @@
 package expert.android.quoccuong.androidpersistentdata;
 
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +27,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     private static final String FILENAME = "sample.txt";
 
+    private SharedPreferences sharedPreferences;
+
     private UserAction recentUserAction;
 
     enum UserAction {
@@ -46,6 +49,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         btnRead.setOnClickListener(this);
 
         Log.d("Cuong", "OnCreate");
+
+        sharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
     }
 
     @Override
@@ -69,7 +74,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     private void populateTheReadText() {
         recentUserAction = UserAction.READ;
-        try {
+        txtMessage.setText(sharedPreferences.getString("sample_key", "String not found"));
+        /*try {
             if (arePermissionGranted(EXTERNAL_STORAGE_READ_WRITE_PERMISSION)) {
                 txtMessage.setText(readTextFromExternalStorage(FILENAME));
                 txtMessage.setVisibility(View.VISIBLE);
@@ -80,14 +86,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         } catch (IOException e) {
             e.printStackTrace();
             txtMessage.setVisibility(View.GONE);
-        }
+        }*/
     }
 
     private void writeContentToFile() {
         recentUserAction = UserAction.WRITE;
         String text = edtMessage.getText().toString();
         if (!TextUtils.isEmpty(text)) {
-            try {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("sample_key", text);
+            editor.commit();
+            /*try {
                 if (arePermissionGranted(EXTERNAL_STORAGE_READ_WRITE_PERMISSION)) {
                     writeToExternalStorageFile(FILENAME, text);
                 } else {
@@ -96,7 +105,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+            }*/
         }
     }
 
