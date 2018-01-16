@@ -50,7 +50,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
         Log.d("Cuong", "OnCreate");
 
-        sharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
+//        sharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE); context
+        sharedPreferences = getPreferences(MODE_PRIVATE); // activity
     }
 
     @Override
