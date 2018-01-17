@@ -1,10 +1,16 @@
 package expert.android.quoccuong.androidpersistentdata;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +24,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
+import expert.android.quoccuong.androidpersistentdata.settings.SettingsActivity;
+import expert.android.quoccuong.androidpersistentdata.settings.UserSettingsChangeListener;
+
 public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     private EditText edtMessage;
@@ -26,7 +35,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     private static final String FILENAME = "sample.txt";
 
+    private SharedPreferences sharedPreferences;
+
     private UserAction recentUserAction;
+    private UserSettingsChangeListener listener;
 
     enum UserAction {
         READ, WRITE
@@ -46,6 +58,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         btnRead.setOnClickListener(this);
 
         Log.d("Cuong", "OnCreate");
+
+//        sharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE); context
+        sharedPreferences = getPreferences(MODE_PRIVATE); // activity
     }
 
     @Override
@@ -69,7 +84,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     private void populateTheReadText() {
         recentUserAction = UserAction.READ;
-        try {
+        txtMessage.setText(sharedPreferences.getString("sample_key", "String not found"));
+        /*try {
             if (arePermissionGranted(EXTERNAL_STORAGE_READ_WRITE_PERMISSION)) {
                 txtMessage.setText(readTextFromExternalStorage(FILENAME));
                 txtMessage.setVisibility(View.VISIBLE);
@@ -80,14 +96,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         } catch (IOException e) {
             e.printStackTrace();
             txtMessage.setVisibility(View.GONE);
-        }
+        }*/
     }
 
     private void writeContentToFile() {
         recentUserAction = UserAction.WRITE;
         String text = edtMessage.getText().toString();
         if (!TextUtils.isEmpty(text)) {
-            try {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("sample_key", text);
+            editor.commit();
+            /*try {
                 if (arePermissionGranted(EXTERNAL_STORAGE_READ_WRITE_PERMISSION)) {
                     writeToExternalStorageFile(FILENAME, text);
                 } else {
@@ -96,7 +115,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+            }*/
         }
     }
 
@@ -110,5 +129,33 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 populateTheReadText();
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_main_activity, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        listener = new UserSettingsChangeListener(getApplicationContext());
+        switch (item.getItemId()) {
+            case R.id.menu_settings:
+                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).registerOnSharedPreferenceChangeListener(listener);
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).unregisterOnSharedPreferenceChangeListener(listener);
     }
 }
