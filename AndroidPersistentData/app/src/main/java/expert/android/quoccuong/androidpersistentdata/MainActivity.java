@@ -2,6 +2,7 @@ package expert.android.quoccuong.androidpersistentdata;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 import expert.android.quoccuong.androidpersistentdata.settings.SettingsActivity;
+import expert.android.quoccuong.androidpersistentdata.settings.UserSettingsChangeListener;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
 
@@ -36,6 +38,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private SharedPreferences sharedPreferences;
 
     private UserAction recentUserAction;
+    private UserSettingsChangeListener listener;
 
     enum UserAction {
         READ, WRITE
@@ -137,13 +140,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        listener = new UserSettingsChangeListener(getApplicationContext());
         switch (item.getItemId()) {
             case R.id.menu_settings:
                 startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).registerOnSharedPreferenceChangeListener(listener);
                 break;
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).unregisterOnSharedPreferenceChangeListener(listener);
     }
 }
