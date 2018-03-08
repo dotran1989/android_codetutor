@@ -46,6 +46,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private static class CustomTimer extends TimerTask {
+
+        @Override
+        public void run() {
+
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,12 +89,7 @@ public class MainActivity extends AppCompatActivity {
         // anonymous inner class Hander and Runnable. Having the reference to the outer activity class
         new CustomHandler().postDelayed(new RunnableHandler(), Long.MAX_VALUE >> 1);
 
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-
-            }
-        }, Long.MAX_VALUE>>1);
+        new Timer().schedule(new CustomTimer(), Long.MAX_VALUE>>1);
     }
 
     @Override

@@ -160,3 +160,5 @@ _ Avoid:
 6. Handler and Runnable
 7. Timer
 
+=> Rule: avoid anonymous or anonymous inner class. Use Static inner class
+
