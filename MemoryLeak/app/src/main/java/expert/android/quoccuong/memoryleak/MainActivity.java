@@ -30,6 +30,20 @@ public class MainActivity extends AppCompatActivity {
 
     private Thread thread;
 
+    private static class CustomHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    }
+
+    private static class RunnableHandler implements Runnable {
+        @Override
+        public void run() {
+
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,18 +76,8 @@ public class MainActivity extends AppCompatActivity {
         };
         thread.start();
 
-        // anonymous inner class Hander and Runnable
-        new Handler(){
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-            }
-        }.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        }, Long.MAX_VALUE >> 1);
+        // anonymous inner class Hander and Runnable. Having the reference to the outer activity class
+        new CustomHandler().postDelayed(new RunnableHandler(), Long.MAX_VALUE >> 1);
     }
 
     @Override
