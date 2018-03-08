@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private Thread thread;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,12 +49,22 @@ public class MainActivity extends AppCompatActivity {
         new MyAsyncTask().execute();
 
         // Thread might outlive Activity. Hence leaking memory
-        new Thread().start();
+        thread = new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                if (!isInterrupted()) {
+
+                }
+            }
+        };
+        thread.start();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         textView = null;
+        thread.interrupt(); // make sure thread does not running even beyond the life cycle of activity
     }
 }
