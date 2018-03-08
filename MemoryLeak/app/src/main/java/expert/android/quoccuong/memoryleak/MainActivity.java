@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -78,6 +80,13 @@ public class MainActivity extends AppCompatActivity {
 
         // anonymous inner class Hander and Runnable. Having the reference to the outer activity class
         new CustomHandler().postDelayed(new RunnableHandler(), Long.MAX_VALUE >> 1);
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+            }
+        }, Long.MAX_VALUE>>1);
     }
 
     @Override
