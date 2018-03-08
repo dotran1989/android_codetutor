@@ -3,11 +3,13 @@ package expert.android.quoccuong.memoryleak;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import java.lang.ref.WeakReference;
+
 public class MainActivity extends AppCompatActivity {
 
     SomeRandomSampleClass someRandomSampleClass;
 
-    private static MainActivity activity;
+    private static WeakReference<MainActivity> activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +19,6 @@ public class MainActivity extends AppCompatActivity {
         // getApplicationContext() create once Application instance by Singleton
         someRandomSampleClass = SomeRandomSampleClass.getSomeRandomSampleClass(getApplicationContext());
 
-        activity = this;
+        activity = new WeakReference<MainActivity>(this);
     }
 }
