@@ -14,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static TextView textView;
 
+    private static Object innerObject;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +27,12 @@ public class MainActivity extends AppCompatActivity {
         activity = new WeakReference<MainActivity>(this);
 
         textView = findViewById(R.id.textviewLabel);
+
+        class SampleInnerClass{
+
+        }
+
+        innerObject = new SampleInnerClass();
     }
 
     @Override
