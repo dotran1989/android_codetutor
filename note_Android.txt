@@ -148,3 +148,6 @@ MEMORY LEAK
 3. Using "this" (activity context) is reason cause memory leak.
 Use getApplicationContext() or getContext() -> create application context once time by Singleton.
 
+https://stackoverflow.com/questions/10864853/when-exactly-is-it-leak-safe-to-use-anonymous-inner-classes/10968689
+https://blog.andresteingress.com/2011/10/12/anonymous-inner-classes-in-android
+

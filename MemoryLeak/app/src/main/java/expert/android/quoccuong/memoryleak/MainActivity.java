@@ -7,6 +7,8 @@ public class MainActivity extends AppCompatActivity {
 
     SomeRandomSampleClass someRandomSampleClass;
 
+    private static MainActivity activity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -14,5 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
         // getApplicationContext() create once Application instance by Singleton
         someRandomSampleClass = SomeRandomSampleClass.getSomeRandomSampleClass(getApplicationContext());
+
+        activity = this;
     }
 }

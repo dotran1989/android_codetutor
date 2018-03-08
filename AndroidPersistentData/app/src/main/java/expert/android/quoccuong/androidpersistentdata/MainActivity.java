@@ -100,7 +100,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         }
     }
 
-    @Override
+    /*@Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (arePermissionGranted(permissions) && requestCode == EXTERNAL_STORAGE_PERMISSION) {
@@ -110,5 +110,5 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 populateTheReadText();
             }
         }
-    }
+    }*/
 }
