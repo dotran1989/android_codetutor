@@ -26,4 +26,10 @@ public class MainActivity extends AppCompatActivity {
 
         textView = findViewById(R.id.textviewLabel);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        textView = null;
+    }
 }
