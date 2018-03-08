@@ -139,3 +139,12 @@ And we may want to share it with another app in that case you have to use Custom
 
 4. Path of file: data/data/<package_name> in Device File Explorer.
 
+
+==========================
+MEMORY LEAK
+
+1. Change rotate of device -> memory leak -> many activity instance
+2. Using Android Monitor or Android Profiler or LeakCanary to detect memory leak
+3. Using "this" (activity context) is reason cause memory leak.
+Use getApplicationContext() or getContext() -> create application context once time by Singleton.
+
