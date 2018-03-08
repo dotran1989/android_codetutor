@@ -1,5 +1,6 @@
 package expert.android.quoccuong.memoryleak;
 
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -33,6 +34,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         innerObject = new SampleInnerClass();
+
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                return null;
+            }
+        }.execute();
     }
 
     @Override
