@@ -151,3 +151,10 @@ Use getApplicationContext() or getContext() -> create application context once t
 https://stackoverflow.com/questions/10864853/when-exactly-is-it-leak-safe-to-use-anonymous-inner-classes/10968689
 https://blog.andresteingress.com/2011/10/12/anonymous-inner-classes-in-android
 
+_ Avoid:
+1. WeakReference static activity
+2. Set null for static textview on Destroy
+3. Inner class do not set static
+4. Declare static inner class for AsyncTask
+5. Check interrupt for Thread. Do not use anonymous inner class
+

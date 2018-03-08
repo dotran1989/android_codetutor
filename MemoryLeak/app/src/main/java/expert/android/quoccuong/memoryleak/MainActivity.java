@@ -1,6 +1,8 @@
 package expert.android.quoccuong.memoryleak;
 
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -59,6 +61,19 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         thread.start();
+
+        // anonymous inner class Hander and Runnable
+        new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+            }
+        }.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }, Long.MAX_VALUE >> 1);
     }
 
     @Override
