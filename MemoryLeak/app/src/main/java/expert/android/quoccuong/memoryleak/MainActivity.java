@@ -17,6 +17,15 @@ public class MainActivity extends AppCompatActivity {
 
     private Object innerObject;
 
+    // Refresh Java inner and static inner class why it works.
+    private static class MyAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            return null;
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,13 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         innerObject = new SampleInnerClass();
 
-        new AsyncTask<Void, Void, Void>() {
-
-            @Override
-            protected Void doInBackground(Void... voids) {
-                return null;
-            }
-        }.execute();
+        new MyAsyncTask().execute();
     }
 
     @Override
