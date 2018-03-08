@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // get instance
-        someRandomSampleClass = SomeRandomSampleClass.getSomeRandomSampleClass(this);
+        // getApplicationContext() create once Application instance by Singleton
+        someRandomSampleClass = SomeRandomSampleClass.getSomeRandomSampleClass(getApplicationContext());
     }
 }
