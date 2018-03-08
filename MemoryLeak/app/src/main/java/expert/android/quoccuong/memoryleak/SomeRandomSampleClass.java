@@ -16,6 +16,7 @@ public class SomeRandomSampleClass {
         this.context = context;
     }
 
+    // singleton
     public static SomeRandomSampleClass getSomeRandomSampleClass(Context context) {
         if (someRandomSampleClass == null) {
             someRandomSampleClass = new SomeRandomSampleClass(context);
