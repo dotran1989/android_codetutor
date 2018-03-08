@@ -45,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
         innerObject = new SampleInnerClass();
 
         new MyAsyncTask().execute();
+
+        // Thread might outlive Activity. Hence leaking memory
+        new Thread().start();
     }
 
     @Override
