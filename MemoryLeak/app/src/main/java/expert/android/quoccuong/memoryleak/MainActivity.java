@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static TextView textView;
 
-    private static Object innerObject;
+    private Object innerObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
