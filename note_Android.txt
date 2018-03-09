@@ -163,3 +163,7 @@ _ Avoid:
 
 => Rule: avoid anonymous or anonymous inner class. Use Static inner class
 
+==========================
+SERVICES
+
+1. Service is call by explicit intent
