@@ -12,6 +12,12 @@ import android.util.Log;
 
 public class MyService extends Service {
 
+    private int mRandomNumber;
+    private boolean mIsRandomGeneratorOn;
+
+    private final int MIN = 0;
+    private final int MAX = 100;
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -27,7 +33,6 @@ public class MyService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i("CuongDNQ", "In onStartCommand, thread id: " + Thread.currentThread().getId());
-        stopSelf();
         return super.onStartCommand(intent, flags, startId);
     }
 }

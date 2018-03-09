@@ -167,3 +167,10 @@ _ Avoid:
 SERVICES
 
 1. Service is call by explicit intent
+2. startService
+3. stopService of stopSelf
+4. Three constants
+_ START_STICKY
+_ START_NOT_STICKY
+_ START_REDELIVER_INTENT
+5. Local binding and remote binding
