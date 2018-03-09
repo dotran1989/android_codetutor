@@ -159,6 +159,7 @@ _ Avoid:
 5. Check interrupt for Thread. Do not use anonymous inner class
 6. Handler and Runnable
 7. Timer
+8. Sensor
 
 => Rule: avoid anonymous or anonymous inner class. Use Static inner class
 
