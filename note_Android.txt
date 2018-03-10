@@ -174,3 +174,10 @@ _ START_STICKY
 _ START_NOT_STICKY
 _ START_REDELIVER_INTENT
 5. Local binding and remote binding
+6. Components can bind to Service are Activity, Service and Content Provider.
+7. You can bind a service which has not started.
+8. A bound service cannot be stopped -> call unBindService() will get onUnbind() and onDestroy() service.
+9. onBind() and onUnbind() call once time.
+10.
+_ startService -> bind -> unbind -> destroy automatically
+_ bind service -> start -> unbind -> not destroy. We destroy manually.

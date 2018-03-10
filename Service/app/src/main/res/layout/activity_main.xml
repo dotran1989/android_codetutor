@@ -8,6 +8,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/txt_random_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"/>
@@ -23,5 +24,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Stop service"/>
+
+    <Button
+        android:id="@+id/btn_bind_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bind service"/>
+
+    <Button
+        android:id="@+id/btn_unbind_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Unbind service"/>
+
+    <Button
+        android:id="@+id/btn_get_random_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get random number"/>
 
 </LinearLayout>
