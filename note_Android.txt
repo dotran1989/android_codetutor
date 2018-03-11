@@ -181,3 +181,13 @@ _ START_REDELIVER_INTENT
 10.
 _ startService -> bind -> unbind -> destroy automatically
 _ bind service -> start -> unbind -> not destroy. We destroy manually.
+
+Remote binding
+
+There is one handler at client side app and another handler in service side app.
+ClientSide Handler - RecieveRandomNumberHandler - handles the message being received from Server side app
+Server Side Handler - RandomNumberRequestHandler - handles the request message being sent from Service side app
+There is one Handler in each app. - I hope this clarifies your doubt.﻿
+
+
+
