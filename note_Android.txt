@@ -167,12 +167,12 @@ _ Avoid:
 SERVICES
 
 1. Service is call by explicit intent
-2. startService
+2. startService -> onStartCommand()
 3. stopService of stopSelf
 4. Three constants
-_ START_STICKY
-_ START_NOT_STICKY
-_ START_REDELIVER_INTENT
+_ START_STICKY: auto start not intent, not remember state (music)
+_ START_NOT_STICKY: not auto start, period running and self stopping (alarm)
+_ START_REDELIVER_INTENT: auto re-start from previous state (file download)
 5. Local binding and remote binding
 6. Components can bind to Service are Activity, Service and Content Provider.
 7. You can bind a service which has not started.
@@ -188,6 +188,12 @@ There is one handler at client side app and another handler in service side app.
 ClientSide Handler - RecieveRandomNumberHandler - handles the message being received from Server side app
 Server Side Handler - RandomNumberRequestHandler - handles the request message being sent from Service side app
 There is one Handler in each app. - I hope this clarifies your doubt.﻿
+
+==========================
+FRAGMENT
+
+1. Add fragment in statically (xml - before runtime) and dynamically (code - in runtime)
+2. Fragment do not are declared in Android Manifest same as Activity, Service, BroadcastReceiver, ContentProvider.
 
 
 
