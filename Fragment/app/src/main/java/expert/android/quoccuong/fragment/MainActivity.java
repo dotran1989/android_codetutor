@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 addFragment();
             }
         });
+//        transaction = fragmentManager.beginTransaction(); // Error: commit already called -> app crashed!
     }
 
     @Override
