@@ -198,6 +198,39 @@ FRAGMENT
 _ FragmentManager
 _ FragmentTransaction
 4. Fragment is added by dynamically need view holder in main activity (FrameLayout)
+5. Fragment lifecycle
+
+onAttach
+onCreate
+onCreateView
+onActivityCreated
+onStart
+onResume
+onPause
+onStop
+onDestroyView
+onDestroy
+onDetach
+
+6. Combine Activity with Fragment lifecycle
+
+onCreate
+onStart
+SampleFragment onAttach
+SampleFragment onCreate
+SampleFragment onCreateView
+SampleFragment onActivityCreated
+SampleFragment onStart
+onResume
+SampleFragment onResume
+03-11 11:56:07.543 15989-15989/expert.android.quoccuong.fragment I/CuongDNQ: onPause
+03-11 11:56:07.543 15989-15989/expert.android.quoccuong.fragment I/CuongDNQ: SampleFragment onPause
+03-11 11:56:08.208 15989-15989/expert.android.quoccuong.fragment I/CuongDNQ: onStop
+03-11 11:56:08.209 15989-15989/expert.android.quoccuong.fragment I/CuongDNQ: SampleFragment onStop
+03-11 11:56:08.209 15989-15989/expert.android.quoccuong.fragment I/CuongDNQ: onDestroy
+03-11 11:56:08.209 15989-15989/expert.android.quoccuong.fragment I/CuongDNQ: SampleFragment onDestroyView
+03-11 11:56:08.210 15989-15989/expert.android.quoccuong.fragment I/CuongDNQ: SampleFragment onDestroy
+03-11 11:56:08.210 15989-15989/expert.android.quoccuong.fragment I/CuongDNQ: SampleFragment onDetach
 
 
 
