@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         }
         transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.fragmentContainer, fragment, "demoFragment");
-        transaction.addToBackStack(null); // create a seperate stack for Fragment
+//        transaction.addToBackStack(null); // create a seperate stack for Fragment
         transaction.commit();
     }
 }
