@@ -252,5 +252,27 @@ SampleFragment onResume
 03-11 13:57:23.104 17124-17124/expert.android.quoccuong.fragment I/CuongDNQ: SampleFragment onDestroy
 03-11 13:57:23.105 17124-17124/expert.android.quoccuong.fragment I/CuongDNQ: SampleFragment onDetach
 
+8. Fragment addToBackStack: create a seperate stack for Fragment. 
+
+_ Click Back btn only destroy fragment not activity.
+
+03-11 14:02:18.125 17654-17654/expert.android.quoccuong.fragment I/CuongDNQ: onCreate
+03-11 14:02:18.186 17654-17654/expert.android.quoccuong.fragment I/CuongDNQ: onStart
+03-11 14:02:18.188 17654-17654/expert.android.quoccuong.fragment I/CuongDNQ: onResume
+03-11 14:02:37.020 17654-17654/expert.android.quoccuong.fragment I/CuongDNQ: SampleFragment onAttach
+03-11 14:02:37.020 17654-17654/expert.android.quoccuong.fragment I/CuongDNQ: SampleFragment onCreate
+03-11 14:02:37.021 17654-17654/expert.android.quoccuong.fragment I/CuongDNQ: SampleFragment onCreateView
+03-11 14:02:37.022 17654-17654/expert.android.quoccuong.fragment I/CuongDNQ: SampleFragment onActivityCreated
+03-11 14:02:37.022 17654-17654/expert.android.quoccuong.fragment I/CuongDNQ: SampleFragment onStart
+03-11 14:02:37.022 17654-17654/expert.android.quoccuong.fragment I/CuongDNQ: SampleFragment onResume
+03-11 14:02:41.670 17654-17654/expert.android.quoccuong.fragment I/CuongDNQ: SampleFragment onPause
+03-11 14:02:41.670 17654-17654/expert.android.quoccuong.fragment I/CuongDNQ: SampleFragment onStop
+03-11 14:02:41.671 17654-17654/expert.android.quoccuong.fragment I/CuongDNQ: SampleFragment onDestroyView
+03-11 14:02:41.671 17654-17654/expert.android.quoccuong.fragment I/CuongDNQ: SampleFragment onDestroy
+03-11 14:02:41.671 17654-17654/expert.android.quoccuong.fragment I/CuongDNQ: SampleFragment onDetach
+03-11 14:02:45.373 17654-17654/expert.android.quoccuong.fragment I/CuongDNQ: onPause
+03-11 14:02:46.101 17654-17654/expert.android.quoccuong.fragment I/CuongDNQ: onStop
+03-11 14:02:46.102 17654-17654/expert.android.quoccuong.fragment I/CuongDNQ: onDestroy
+
 
 
