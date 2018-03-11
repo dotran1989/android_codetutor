@@ -7,11 +7,10 @@
     tools:context=".MainActivity"
     android:background="#79fdfe">
 
-    <fragment
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/sampleFragment"
-        android:name="expert.android.quoccuong.fragment.SampleFragment"
+        android:id="@+id/fragmentContainer"
         android:layout_margin="5dp"/>
 
 </LinearLayout>

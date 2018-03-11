@@ -194,6 +194,10 @@ FRAGMENT
 
 1. Add fragment in statically (xml - before runtime) and dynamically (code - in runtime)
 2. Fragment do not are declared in Android Manifest same as Activity, Service, BroadcastReceiver, ContentProvider.
+3. Different about library android.support.v4.app with android.app:
+_ FragmentManager
+_ FragmentTransaction
+4. Fragment is added by dynamically need view holder in main activity (FrameLayout)
 
 
 
