@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void addFragment() {
         Fragment fragment;
-        switch (fragmentManager.getBackStackEntryCount()) {
+        /*switch (fragmentManager.getBackStackEntryCount()) {
             case 0:
                 fragment = new SampleFragment();
                 break;
@@ -92,7 +92,19 @@ public class MainActivity extends AppCompatActivity {
             default:
                 fragment = new SampleFragment();
                 break;
+        }*/
+
+        fragment = fragmentManager.findFragmentById(R.id.fragmentContainer);
+        if (fragment instanceof SampleFragment) {
+            fragment = new FragmentTwo();
+        } else if (fragment instanceof FragmentTwo) {
+            fragment = new FragmentThree();
+        } else if (fragment instanceof FragmentThree) {
+            fragment = new SampleFragment();
+        } else {
+            fragment = new SampleFragment();
         }
+
         transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.fragmentContainer, fragment, "demoFragment");
 //        transaction.addToBackStack(null); // create a seperate stack for Fragment
