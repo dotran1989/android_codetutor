@@ -279,5 +279,8 @@ _ Fragment back stack is managed by Fragment Manager and developer
 
 10. findFragmentById
 
+11. add() contains multiple fragments at FrameLayout. Back press button destroys multi.
+_ replace() contains only one fragment at FrameLayout. Back press button destroys one fragment and then activity.
+
 
 
