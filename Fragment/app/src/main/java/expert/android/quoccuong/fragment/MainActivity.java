@@ -98,4 +98,16 @@ public class MainActivity extends AppCompatActivity {
 //        transaction.addToBackStack(null); // create a seperate stack for Fragment
         transaction.commit();
     }
+
+    @Override
+    public void onBackPressed() {
+        Fragment fragment = fragmentManager.findFragmentById(R.id.fragmentContainer);
+        if (fragment != null) {
+            transaction = fragmentManager.beginTransaction();
+            transaction.remove(fragment);
+            transaction.commit();
+        } else {
+            super.onBackPressed();
+        }
+    }
 }

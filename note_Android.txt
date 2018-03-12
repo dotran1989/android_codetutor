@@ -277,5 +277,7 @@ _ Click Back btn only destroy fragment not activity.
 9. Activity back stack is managed by Activity Manager
 _ Fragment back stack is managed by Fragment Manager and developer
 
+10. findFragmentById
+
 
 
