@@ -282,7 +282,7 @@ _ Fragment back stack is managed by Fragment Manager and developer
 11. add() contains multiple fragments at FrameLayout. Back press button destroys multi.
 _ replace() contains only one fragment at FrameLayout. Back press button destroys one fragment and then activity.
 
-12. Log addToBackStack and remove backStack. Back button SampleFragment again.
+12. Log addToBackStack and remove backStack. Why is press back button is "Remove SampleFragment" again?
 
 Remove SampleFragment
 Remove SampleFragment
@@ -295,6 +295,7 @@ Add FragmentThree
 Add FragmentTwo
 Add SampleFragment
 
+13. Each commit is a transaction entry in back stack.
 
-
+14. transaction.addToBackStack() is a back stack of transaction, not Fragment back stack.
 
