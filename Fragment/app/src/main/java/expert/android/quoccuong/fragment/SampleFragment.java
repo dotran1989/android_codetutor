@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 public class SampleFragment extends android.support.v4.app.Fragment {
 
-    @Override
+    /*@Override
     public void onAttach(Context context) {
         Log.i("CuongDNQ", "SampleFragment onAttach");
         super.onAttach(context);
@@ -24,7 +24,7 @@ public class SampleFragment extends android.support.v4.app.Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         Log.i("CuongDNQ", "SampleFragment onCreate");
         super.onCreate(savedInstanceState);
-    }
+    }*/
 
     @Nullable
     @Override
@@ -33,7 +33,7 @@ public class SampleFragment extends android.support.v4.app.Fragment {
         return inflater.inflate(R.layout.fragment_sample, container, false);
     }
 
-    @Override
+    /*@Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         Log.i("CuongDNQ", "SampleFragment onActivityCreated");
         super.onActivityCreated(savedInstanceState);
@@ -79,5 +79,10 @@ public class SampleFragment extends android.support.v4.app.Fragment {
     public void onDetach() {
         Log.i("CuongDNQ", "SampleFragment onDetach");
         super.onDetach();
+    }*/
+
+    @Override
+    public String toString() {
+        return SampleFragment.class.getSimpleName();
     }
 }

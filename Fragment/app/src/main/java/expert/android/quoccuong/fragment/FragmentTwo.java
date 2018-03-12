@@ -20,4 +20,9 @@ public class FragmentTwo extends Fragment {
         Log.i("CuongDNQ", "FragmentTwo onCreateView");
         return inflater.inflate(R.layout.fragment_sample_two, container, false);
     }
+
+    @Override
+    public String toString() {
+        return FragmentTwo.class.getSimpleName();
+    }
 }

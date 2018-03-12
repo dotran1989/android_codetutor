@@ -35,6 +35,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onBackStackChanged() {
                 txtViewFragmentCount.setText("Fragment count in back stack: " + fragmentManager.getBackStackEntryCount());
+
+                // log backstack status
+                StringBuilder backstackEntryMessage = new StringBuilder("Current status of fragment transaction back stack: " + fragmentManager.getBackStackEntryCount() + "\n");
+
+                for (int index=(fragmentManager.getBackStackEntryCount() - 1); index >= 0; index--) {
+                    FragmentManager.BackStackEntry entry = fragmentManager.getBackStackEntryAt(index);
+                    backstackEntryMessage.append(entry.getName() + "\n");
+                }
+                Log.i("CuongDNQ", backstackEntryMessage.toString());
             }
         });
 
@@ -106,17 +115,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
         transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.fragmentContainer, fragment, "demoFragment");
-//        transaction.addToBackStack(null); // create a seperate stack for Fragment
+        transaction.add(R.id.fragmentContainer, fragment, "demoFragment");
+        transaction.addToBackStack("Add " + fragment.toString()); // create a seperate stack for Fragment
         transaction.commit();
     }
 
     @Override
     public void onBackPressed() {
+        transaction = fragmentManager.beginTransaction();
         Fragment fragment = fragmentManager.findFragmentById(R.id.fragmentContainer);
         if (fragment != null) {
-            transaction = fragmentManager.beginTransaction();
             transaction.remove(fragment);
+            transaction.addToBackStack("Remove " + fragment.toString()); // add to transaction back stack
             transaction.commit();
         } else {
             super.onBackPressed();

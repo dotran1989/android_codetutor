@@ -18,4 +18,9 @@ public class FragmentThree extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_three, container, false);
     }
+
+    @Override
+    public String toString() {
+        return FragmentThree.class.getSimpleName();
+    }
 }
