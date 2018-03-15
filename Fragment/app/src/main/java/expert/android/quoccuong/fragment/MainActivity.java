@@ -9,10 +9,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Button btnAddFragment;
+    private Button btnPopBackStack;
+    private Button btnRemoveFragment;
     private TextView txtViewFragmentCount;
 
     FragmentManager fragmentManager;
@@ -26,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
         txtViewFragmentCount = findViewById(R.id.txtview_fragment_count_back_stack);
         btnAddFragment = findViewById(R.id.btn_add_fragment);
+        btnPopBackStack = findViewById(R.id.btn_pop_back_stack);
+        btnRemoveFragment = findViewById(R.id.btn_remove_fragment);
 
         fragmentManager = getSupportFragmentManager();
 
@@ -47,12 +52,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnAddFragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addFragment();
-            }
-        });
+        btnAddFragment.setOnClickListener(this);
+        btnPopBackStack.setOnClickListener(this);
+        btnRemoveFragment.setOnClickListener(this);
+
 //        transaction = fragmentManager.beginTransaction(); // Error: commit already called -> app crashed!
     }
 
@@ -130,6 +133,31 @@ public class MainActivity extends AppCompatActivity {
             transaction.commit();
         } else {
             super.onBackPressed();
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_add_fragment:
+                addFragment();
+                break;
+            case R.id.btn_pop_back_stack:
+                fragmentManager.popBackStack("Replace SampleFragment", 0);
+                break;
+            case R.id.btn_remove_fragment:
+                transaction = fragmentManager.beginTransaction();
+                Fragment fragment = fragmentManager.findFragmentById(R.id.fragmentContainer);
+                if (fragment != null) {
+                    transaction.remove(fragment);
+                    transaction.addToBackStack("Remove " + fragment.toString());
+                    transaction.commit();
+                } else {
+                    Toast.makeText(this, "No fragment to remove", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                break;
         }
     }
 }

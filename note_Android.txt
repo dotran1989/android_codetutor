@@ -299,3 +299,15 @@ Add SampleFragment
 
 14. transaction.addToBackStack() is a back stack of transaction, not Fragment back stack.
 
+15. Click Remove (twice) and Pop (twice) cause error: Fragment already exists.
+
+16. 
+_ popBackStack(0, 0): pop all stacks except index 0
+1st argument: specific back stack position
+2nd argument: stack at zero index do not pop.
+
+_ popBackStack(0, FragmentManager.POP_BACK_STACK_INCLUSIVE); // pop all stacks
+_ .popBackStack(1, FragmentManager.POP_BACK_STACK_INCLUSIVE); // pop all stacks from index 1 (except index 0 not pop)
+
+_ popBackStack("Add SampleFragment", 0); // pop all stacks not including "Add SampleFragment"
+_ popBackStack("Add SampleFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE); // pop all stacks reach to "Add SampleFragment"
