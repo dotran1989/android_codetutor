@@ -328,3 +328,12 @@ if (savedInstanceState == null) { // if null that means it a onCreate, else if n
 
 countriesFragment.setFragmentActionListener(this);
 
+-> reset callback reference in fragment
+
+@Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) { // reset callback reference
+            fragmentActionListener = (MainActivity) getActivity();
+        }
+    }
