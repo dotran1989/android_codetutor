@@ -311,3 +311,7 @@ _ .popBackStack(1, FragmentManager.POP_BACK_STACK_INCLUSIVE); // pop all stacks 
 
 _ popBackStack("Add SampleFragment", 0); // pop all stacks not including "Add SampleFragment"
 _ popBackStack("Add SampleFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE); // pop all stacks reach to "Add SampleFragment"
+
+17. Screen orientation change will call onCreate() in Activity again. Activity will be restarted. So fragment is destroy.
+_ Prevent activity will be restarted - call onCreate() - by set configuration screen in Manifest.
+android:configChanges="orientation|screenSize|keyboardHidden"

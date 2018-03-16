@@ -1,9 +1,11 @@
 package expert.android.quoccuong.fragmentcountry;
 
+import android.content.res.Configuration;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 public class MainActivity extends AppCompatActivity implements FragmentActionListener{
 
@@ -13,6 +15,7 @@ public class MainActivity extends AppCompatActivity implements FragmentActionLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("CuongDNQ", "onCreate");
         setContentView(R.layout.activity_main);
 
         fragmentManager = getSupportFragmentManager();
@@ -54,6 +57,16 @@ public class MainActivity extends AppCompatActivity implements FragmentActionLis
             case FragmentActionListener.ACTION_VALUE_COUNTRY_SELECTED:
                 addCountryDescriptionFragment(bundle);
                 break;
+        }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Log.d("CuongDNQ", "landscape");
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Log.d("CuongDNQ", "portrait");
         }
     }
 }
