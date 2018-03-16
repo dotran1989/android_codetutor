@@ -36,6 +36,14 @@ public class CountriesFragment extends Fragment {
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) { // reset callback reference
+            fragmentActionListener = (MainActivity) getActivity();
+        }
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Select country");

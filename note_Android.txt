@@ -313,16 +313,18 @@ _ popBackStack("Add SampleFragment", 0); // pop all stacks not including "Add Sa
 _ popBackStack("Add SampleFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE); // pop all stacks reach to "Add SampleFragment"
 
 17. Screen orientation change will call onCreate() in Activity again. Activity will restart. So fragment is destroy.
+
 _ Prevent activity will restart - call onCreate() - by set configuration screen in Manifest.
 
 android:configChanges="orientation|screenSize|keyboardHidden"
 
 _ Check state of savedInstanceState:
 
-if (savedInstanceState == null) { // if null that means it a onCreate, else if not null that means activity restarts.
+if (savedInstanceState == null) { // if null that means it a onCreate, else if not null that means activity restarts (still calls onCreate but not 1st time).
     addCountriesFragment();
 }
 
-_ fragment is keeping but activity no more valid when change orientation of screen -> callback reference is lot
+-> fragment is keeping but 'this' activity no more valid when change orientation of screen (cannot click listener on listView) -> callback reference is lot
 
 countriesFragment.setFragmentActionListener(this);
+
