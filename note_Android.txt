@@ -322,3 +322,7 @@ _ Check state of savedInstanceState:
 if (savedInstanceState == null) { // if null that means it a onCreate, else if not null that means activity restarts.
     addCountriesFragment();
 }
+
+_ fragment is keeping but activity no more valid when change orientation of screen -> callback reference is lot
+
+countriesFragment.setFragmentActionListener(this);

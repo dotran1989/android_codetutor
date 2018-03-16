@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements FragmentActionLis
         fragmentTransaction = fragmentManager.beginTransaction();
 
         CountriesFragment countriesFragment = new CountriesFragment();
-        countriesFragment.setFragmentActionListener(this);
+        countriesFragment.setFragmentActionListener(this); // 'this' activity is no more valid -> callback reference is lost
 
         fragmentTransaction.add(R.id.fragmentContainer, countriesFragment);
 //        fragmentTransaction.addToBackStack(null);
