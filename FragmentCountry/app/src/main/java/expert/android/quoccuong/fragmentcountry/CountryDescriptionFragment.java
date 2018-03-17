@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,11 +35,26 @@ public class CountryDescriptionFragment extends Fragment {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d("CuongDNQ", "CountryDescriptionFragment onSaveInstanceState - countryName: " + countryName);
+        outState.putString("selectedCountry", countryName);
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Bundle bundle = getArguments();
-        countryName = bundle.getString(FragmentActionListener.KEY_SELECTED_COUNTRY, "India");
-        countryDescription = getString(getStringId(countryName));
+
+        if (savedInstanceState != null) {
+            Log.d("CuongDNQ", "CountryDescriptionFragment >>> 2nd");
+            countryName = savedInstanceState.getString("selectedCountry", countryName);
+            countryDescription = getString(getStringId(countryName));
+        } else {
+            Log.d("CuongDNQ", "CountryDescriptionFragment >>> 1st");
+            Bundle bundle = getArguments();
+            countryName = bundle.getString(FragmentActionListener.KEY_SELECTED_COUNTRY, "India");
+            countryDescription = getString(getStringId(countryName));
+        }
     }
 
     @Override
