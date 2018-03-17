@@ -337,3 +337,7 @@ countriesFragment.setFragmentActionListener(this);
             fragmentActionListener = (MainActivity) getActivity();
         }
     }
+
+18. android:configChanges="orientation|screenSize|keyboardHidden"
+_ onSaveStatedChange is always null
+_ log onSaveStatedChange() and onRestoreStateChanged() is not look at.
