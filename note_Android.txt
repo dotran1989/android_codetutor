@@ -324,7 +324,7 @@ if (savedInstanceState == null) { // if null that means it a onCreate, else if n
     addCountriesFragment();
 }
 
--> fragment is keeping but 'this' activity no more valid when change orientation of screen (cannot click listener on listView) -> callback reference is lot
+-> fragment is keeping but 'this' activity no more valid when change orientation of screen (cannot click listener on listView) -> callback reference is lost
 
 countriesFragment.setFragmentActionListener(this);
 
@@ -341,3 +341,26 @@ countriesFragment.setFragmentActionListener(this);
 18. android:configChanges="orientation|screenSize|keyboardHidden"
 _ onSaveStatedChange is always null
 _ log onSaveStatedChange() and onRestoreStateChanged() is not look at.
+
+19. They are phones, 7” tablets and 10” Tablets. To distinguish them from one another we use the shortest width of these devices. For a phone it will be usually less than 600dp. 
+For 7” tablet it will be 600dp. And for 10” the width is 720 dp.
+
+res/layout-sw600dp
+res/layout-sw720dp
+res/layout-sw600dp-land
+res/layout-sw720dp-land
+res/layout-w600dp
+res/layout-w720dp
+res/layout-h600dp
+res/layout-h720dp
+res/layout-w600dp-land
+res/layout-w720dp-land
+res/layout-h600dp-land
+res/layout-h720dp-land
+
+==========================
+BROADCAST RECEIVER
+
+1. Register
+_ Create a class extend BroadcastReceiver
+_ Register in Manifest or code
