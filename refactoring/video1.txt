@@ -1,0 +1,436 @@
+http://www.newthinktank.com/2013/01/code-refactoring/
+
+Code Refactoring Code from the Video
+
+01
+// Demonstrate the Creation Method replacement of Constructors
+02
+// Code Refactoring
+03
+ 
+04
+public class FootballPlayer {
+05
+     
+06
+    private double passerRating; // Specific to QBs
+07
+    private int rushingYards; // Specific to RBs & QBs
+08
+    private int receivingYards; // Specific to RBs & WRs
+09
+    private int totalTackles; // Specific to DEF
+10
+    private int interceptions; // Specific to DEF
+11
+    private int fieldGoals; // Specific to Kickers
+12
+    private double avgPunt; // Specific to Punters
+13
+    private double avgKickoffReturn; // Specific to Special Teams
+14
+    private double avgPuntReturn; // Specific to Special Teams
+15
+     
+16
+    /*
+17
+     
+18
+    FootballPlayer(double passerRating, int rushingYards){
+19
+         
+20
+        this.passerRating = passerRating;
+21
+        this.rushingYards = rushingYards;
+22
+         
+23
+    }
+24
+     
+25
+    FootballPlayer(int rushingYards){
+26
+         
+27
+        this.rushingYards = rushingYards;
+28
+         
+29
+    }
+30
+     
+31
+    Can't do this because the signature must be different
+32
+      
+33
+    FootballPlayer(int receivingYards){
+34
+         
+35
+        this.receivingYards = receivingYards;
+36
+         
+37
+    }
+38
+    */
+39
+     
+40
+    private FootballPlayer(double passerRating, int rushingYards,
+41
+            int receivingYards, int totalTackles, int interceptions,
+42
+            int fieldGoals, double avgPunt, double avgKickoffReturn,
+43
+            double avgPuntReturn){
+44
+         
+45
+        this.passerRating = passerRating;
+46
+        this.rushingYards = rushingYards;
+47
+        this.receivingYards = receivingYards;
+48
+        this.totalTackles = totalTackles;
+49
+        this.interceptions = interceptions;
+50
+        this.fieldGoals = fieldGoals;
+51
+        this.avgPunt = avgPunt;
+52
+        this.avgKickoffReturn = avgKickoffReturn;
+53
+        this.avgPuntReturn = avgPuntReturn;
+54
+         
+55
+    }
+56
+     
+57
+    public double getPasserRating() { return passerRating; }
+58
+     
+59
+    public static FootballPlayer createQB(double passerRating, int rushingYards){
+60
+         
+61
+        return new FootballPlayer(passerRating, rushingYards, 0, 0, 0, 0, 0.0,
+62
+                0.0, 0.0);
+63
+         
+64
+    }
+65
+     
+66
+    public static FootballPlayer createWR(int rushingYards, int receivingYards){
+67
+         
+68
+        return new FootballPlayer(0, rushingYards, receivingYards, 0, 0, 0, 0.0,
+69
+                0.0, 0.0);
+70
+         
+71
+    }
+72
+     
+73
+    public static FootballPlayer createKicker(int fieldGoals, double avgPunt){
+74
+         
+75
+        return new FootballPlayer(0, 0, 0, 0, 0, 38, 37.8,
+76
+                0.0, 0.0);
+77
+         
+78
+    }
+79
+     
+80
+    public static void main(String[] args){
+81
+         
+82
+        // The creation methods
+83
+        // Explain what type of player is being made
+84
+        // Are easier to understand (especially the attributes)
+85
+         
+86
+        FootballPlayer aaronRodgers = FootballPlayer.createQB(108.0, 259);
+87
+         
+88
+        FootballPlayer calvinJohnson = FootballPlayer.createWR(11, 1964);
+89
+         
+90
+        FootballPlayer sebastianJanikowski = FootballPlayer.createKicker(31, 33.0);
+91
+         
+92
+        System.out.println("Aaron Rodgers Passer Rating: " + aaronRodgers.getPasserRating());
+93
+         
+94
+    }
+95
+ 
+96
+}
+01
+// Demonstrate chain constructors
+02
+// Code Refactoring
+03
+ 
+04
+public class FootballPlayer2 {
+05
+     
+06
+    private String playerName ="";
+07
+    private String college = "";
+08
+    private double fortyYardDash = 0.0;
+09
+    private int repsBenchPress = 0;
+10
+    private double sixtyYardDash = 0.0;
+11
+     
+12
+    public String getPlayerName() { return playerName; }
+13
+    public String getCollege() { return college; }
+14
+    public double get40YdDash() { return fortyYardDash; }
+15
+    public int getRepsBenchPress() { return repsBenchPress; }
+16
+    public double get60YdDash() { return sixtyYardDash; }
+17
+     
+18
+     
+19
+     
+20
+    // Too much duplication in constructors
+21
+    /*
+22
+    public FootballPlayer2(String playerName, String college,
+23
+            double fortyYardDash, double sixtyYardDash){
+24
+         
+25
+        this.playerName = playerName;
+26
+        this.college = college;
+27
+        this.fortyYardDash = fortyYardDash;
+28
+        this.sixtyYardDash = sixtyYardDash;
+29
+         
+30
+    }
+31
+     
+32
+    public FootballPlayer2(String playerName, String college,
+33
+            double fortyYardDash, int repsBenchPress){
+34
+         
+35
+        this.playerName = playerName;
+36
+        this.college = college;
+37
+        this.fortyYardDash = fortyYardDash;
+38
+        this.repsBenchPress = repsBenchPress;
+39
+         
+40
+    }
+41
+     
+42
+    public FootballPlayer2(String playerName, String college,
+43
+            double fortyYardDash, int repsBenchPress, double sixtyYardDash){
+44
+         
+45
+        this.playerName = playerName;
+46
+        this.college = college;
+47
+        this.fortyYardDash = fortyYardDash;
+48
+        this.repsBenchPress = repsBenchPress;
+49
+        this.sixtyYardDash = sixtyYardDash;
+50
+         
+51
+    }
+52
+    */
+53
+     
+54
+    // Create a general catch all constructor
+55
+     
+56
+    public FootballPlayer2(String playerName, String college,
+57
+            double fortyYardDash, int repsBenchPress, double sixtyYardDash){
+58
+         
+59
+        this.playerName = playerName;
+60
+        this.college = college;
+61
+        this.fortyYardDash = fortyYardDash;
+62
+        this.repsBenchPress = repsBenchPress;
+63
+        this.sixtyYardDash = sixtyYardDash;
+64
+         
+65
+    }
+66
+     
+67
+    public FootballPlayer2(String playerName, String college,
+68
+            double fortyYardDash, int repsBenchPress){
+69
+         
+70
+        this(playerName, college, fortyYardDash, repsBenchPress, 0.0);
+71
+         
+72
+    }
+73
+     
+74
+    public FootballPlayer2(String playerName, String college,
+75
+            double fortyYardDash, double sixtyYardDash){
+76
+         
+77
+        this(playerName, college, fortyYardDash, 0, sixtyYardDash);
+78
+         
+79
+    }
+80
+     
+81
+    public static void main(String[] args){
+82
+         
+83
+        FootballPlayer2 jamellFleming = new FootballPlayer2("Jamell Fleming", "Oklahoma", 4.53, 10.75);
+84
+         
+85
+        System.out.println(jamellFleming.getPlayerName());
+86
+        System.out.println(jamellFleming.getCollege());
+87
+        System.out.println(jamellFleming.get40YdDash());
+88
+        System.out.println(jamellFleming.getRepsBenchPress());
+89
+        System.out.println(jamellFleming.get60YdDash());
+90
+         
+91
+    }
+92
+ 
+93
+}
+Code Refactoring Presentation
+
+What is Refactoring
+
+Refactoring makes code understandable and easy to extend
+Refactoring makes it quicker to create complicated systems
+
+Why Should you Refactor
+
+You remove excess code so it is easier to understand & modify
+By refactoring code you can better understand others code
+You eliminate the having to remember what old code does
+You can write code quicker
+
+What Are Bad Smells?
+
+Bad smells are common design problems
+Bad design is normally unclear, complicated or duplicated
+
+The Bad Smells
+
+Duplicated Code
+Long Methods
+Complex Conditional Statements
+Primitive Obsession
+Indecent Exposure
+Solution Sprawl
+Alternative Classes with Different Interfaces
+Lazy Classes
+Large Classes
+Switch Statements
+Combinatorial Explosions
+Oddball Solutions
+
+How Will I Teach Refactoring
+
+Cover a common problem
+Cover its solution
+Explain design patterns used if needed
+Provide the solution in code form
+Provide a checklist that can be used to quickly jump to refactoring solutions
+
+Creation Problems
+
+Creation Method
+Replace Constructors with Creation Methods
+Which constructor should be called?
+Wish constructors had descriptive names?
+Constructors can’t have the same attribute signatures
+
+Avoid Duplication & Chain Constructors
+
+More constructors, More problems
+General purpose constructors save the day
