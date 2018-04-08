@@ -4,6 +4,8 @@ _ If the code is as clear as a method name use the code. Ex: checkIfInTop15()
 _ eliminate use temp values. Ex: avgDashTime() > 4.41
 _ local variables: replace right by methods()
 
+// ----------------
+
 import java.util.ArrayList;
 
 public class FootballPlayer40YardDashInfo {

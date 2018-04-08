@@ -1,3 +1,9 @@
+Constructors
+_ The creation methods explain what type of player is being made.
+_ Avoid too much duplication in constructors.
+
+// ----------------
+
 // Demonstrate the Creation Method replacement of Constructors
 // Code Refactoring
 
